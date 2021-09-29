@@ -1,0 +1,152 @@
+\documentclass[twoside]{article}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{mathrsfs}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+\title{Motivation and Definition of Manifolds}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\date{\today}
+\begin{document}
+	\maketitle
+	\section{Introduction: Finding the Tangent Line With or Without Calculus}
+		Consider the classic question on an ellipse: Finding the tangent line of $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ at $(m,n)$, where $m^2< a^2$ and $n^2 < b^2$. 
+		\begin{proof}[What a high schooler will do (no calculus)]
+			Write the desired tangent line as
+			\[
+				y=r(x-m)+n.
+			\]
+			Inserting it into the equation of ellipse, we have
+			\[
+				\frac{x^2}{a^2}+\frac{[r(x-m)+n]^2}{b^2}-1=0.
+			\]
+			Since the line and the curve share only one point, the equation above should have only one solution. This is to say that the discriminant ($\Delta = b^2-4ac$) should be $0$. But do you want to solve this manually? I don't. 
+		\end{proof}
+		\begin{proof}[What a college student will do (with calculus)]
+			Consider the function
+			\[
+				f(x,y)=\frac{x^2}{a^2}+\frac{y^2}{b^2}-1.
+			\]
+			It follows that $f(m,n)=0$. By implicit function theorem, there is a neighbourhood $W \subset \mathbb{R}$ around $n$, and a smooth function $g:W \to \mathbb{R}$ such that $g(y)=x$ (in particular, $g(b)=a$) and
+			\[
+				f(g(y),y)=0, \quad y \in W,
+			\]
+			and 
+			\[
+				g'(n) = -\frac{f_y}{f_x}\vert_{(x,y)=(m,n)}.
+			\]
+			Around this neighbourhood, we only need to consider the function $x=g(y)$. If we work out the tangent line of this function then we are done. It follows that
+			\[
+				g'(n) = -\frac{2n/b^2}{2m/a^2}
+			\]
+			Therefore the tangent line is
+			\[
+				x=g'(n)(y-n)+m = -\frac{2n/b^2}{2m/a^2}(y-n)+m.
+			\]
+		\end{proof}
+		The most challenging thing in the second solution is evaluating two partial derivatives. Calculus saved our life. Note the neighbourhood $W$ around $n$, together with the function $g$, actually determine a neighbourhood $U$ around $(m,n)$, which can be considered as a small fraction of the ellipse curve. In $U$, to every $y \in W$, there corresponds a unique $x$ such that $(x,y) \in U$ and $f(x,y)=0$.
+		
+		What's the crucial difference? The high schooler version is making use of the whole curve (by using the equation). Everywhere on it is considered. But the college student version is not doing that: only a small neighbourhood is concerned. We don't even care about how big that neighbourhood look like. 
+		
+		On the small neighbourhood of the curve, we also pretend we are not working on a curve, but on the straight line (let's say, the Euclidean space).
+		
+		This idea shall be a life-saver. For example, if you want to compute the tangent line of the curve $(x+\sin{x},x-\tan{x})$, then working with discriminant is not feasible at all: there is no quadratic polynomials to work with. But with much more calculus it becomes possible: maybe we can still use implicit function theorem (in fact we do need implicit function theorem and inverse function theorem extensively). 
+		
+		Our goal is quite ambitious: we want to study Calculus on \textit{many} objects, not just Euclidean spaces, although we mainly rely on it. However, as we have seen, working in a classic way (equation, discriminant, etc.) is not a good way. We need a more modern approach. The example above enlightens us: maybe what really matters is local structures or the information around a point, and perhaps we don't even need to \textit{decode} it, we only need to know that they are there.
+		
+		\section{Generalisation of Curves and Surfaces in Higher Dimensionals}
+		What is a curve or a surface anyway? Maybe the ellipse is a curve, but how do we validate it? Because its area is as small as possible? What is a surface? The unit ball sphere $S^2=\{(x,y,z):x^2+y^2+z^2=1\}$ is a surface, but how? Is it because it is as thin as possible?
+		
+		We cannot define mathematical objects like this. The definition can be extracted from intuition but not everything about intuition. This is not cool. However, we have good understanding of $\mathbb{E}$ and $\mathbb{E}^2$, so why don't we good use of it?
+		\begin{definition}	
+			A curve is a \textbf{topological space} where every point has an open neighbourhood homeomorphic to some open subset of $\mathbb{E}$. Similarly, a surface is a \textbf{topological space} where every point has an open neighbourhood homeomorphic to some open subset of $\mathbb{E}^3$.
+		\end{definition}
+		This definition is quite intuitive: with this we can say with absolute certainty that an ellipse yields a curve, a unit ball sphere is a surface.. However, we cannot make sure that every object we study is curve or surface. It may be a higher dimensional thing (for example, what about the unit ball sphere in $4$ dimensional space?). So we have to deliver a natural generalisation. 
+		\begin{definition}
+			A topological space $M$ is called \textbf{locally Euclidean of dimension $n$} if every point of $M$ has a open neighbourhood homeomorphic to some open subset of $\mathbb{E}^n$.
+		\end{definition}
+		Here we have some good local information: locally, it \textit{looks like} a Euclidean space. What really matters is that such information exist. You don't need to write down every open set of the unit circle and write down every homeomorphism. So what about the unit ball sphere in $4$ dimensional space? The set is written as
+		\[
+			S^3 = \{(x_0,x_1,x_2,x_3):x_0^2+x_1^2+x_2^2+x_3^2=1\}.
+		\]
+		If we fix $x_1,x_2,x_3$, then $x_0$ is also determined (up to plus or minus). Every point on this set can be determined by three variables. Around one fixed point we have a neighbourhood that is determined by three variables, which can be considered as a subset of $\mathbb{E}^3$, though we don't care about the explicit function. We cannot imagine such a thing in our mind but we can still attack it with calculus.
+		
+		With the concept of locally Euclidean space, we have many objects to study, much beyond curves and surfaces. But, we want to study calculus everywhere, but this concept only gives continuity (local homeomorphism), and differentiation is not even touched. We may want to study the $4$-dimensional ball alone, not treat it as a subset of $\mathbb{E}^4$. This is to say we have some other job to work on.
+		
+		\section{Topological Manifold, differentiable structure and Differential Manifold}
+		We are pretty close to our main goal but we shall not rush. Let us sum up what is going on. We want to study calculus on many objects, so we are looking for good structures. However we did not introduce differentiation in a natural sense yet. 
+			\subsection{Topological Manifold}
+			\begin{definition}
+				A locally Euclidean space $M$ of dimension $n$ is called an \textbf{$n$-dimensional manifold (French: varieté)} if it is Hausdorff and second countable.
+			\end{definition}
+			Yes we only added two restrictions on being locally Euclidean: Hausdorff and second countable. This is to make our life easier and to exclude some weird cases. Being Hausdorff makes sure that there are enough open sets. In geometry if we cannot separate two points in a natural sense then we are so powerless. Being second countable makes sure that there will few enough open sets. It cannot be explained easily here, but second countability gives \textbf{paracompactness}, which gives \textbf{partition of unity}, without which \textbf{integration} becomes impossible, but we do want integration.
+			
+			Another important thing is that we want the dimension of $M$ to be consistent. It cannot be both $1$ and $2$ at the same time. The union of a curve and a surface cannot be a manifold - you cannot study the tangent line and plane at the same time.  
+			
+			Study of topological manifold alone can be a big thing and is of great importance. To study deeper one may need many knowledge of algebraic topology, which is not easy at all.
+			\subsection{differentiable structure and Differential Manifold}
+			On a topological manifold we can work with continuous functions with ease. But this is far from enough. We are looking for a topological manifold with \textbf{differentiable structure}. We want to study $S^3$ extensively with differentiation (and integration in the future), so we need to grant it with a bunch of information to \textit{differentiate}.
+			
+			To begin with we first recall our definition of differentiability in $\mathbb{R}^n$. 
+			
+			\begin{definition}
+				Let $U \subset \mathbb{R}^n$ be open, and let $f:U \to \mathbb{R}$. If $\alpha = (\alpha_1,\dots,\alpha_n)$ is a $d$-tuple of non-negative integers, we write
+				\[
+					[\alpha]= \sum_{i=1}^{n}\alpha_i, \quad \frac{\partial^\alpha}{\partial r^\alpha} = \frac{\partial^{[\alpha]}}{\partial r_1^{\alpha_1} \cdots r_n^{\alpha_n}}
+				\]
+				
+				We say that $f$ is differentiable of class $C^k$ on $U$ if $\frac{\partial^\alpha}{\partial r^\alpha}f$ exist and are continuous on $U$ for all $[\alpha] \le k$. In particular, $f \in C^0$ if $f$ is continuous. \\
+				If $f:U \to \mathbb{R}^n$, then $f$ is differentiable of class $C^k$ if each of the component function $f_i = r_i \circ f$ is $C^k$. We say $f$ is $C^\infty$ if it is $C^k$ for all $k \ge 0$.
+			\end{definition}
+		
+			This doesn't go any further from multivariable calculus. We are much more interested in the case when $k=\infty$, when everything is called \textbf{smooth} on top of differentiable. We are now ready to introduce the concept of differentiable structure.
+			
+			\begin{definition}
+				A \textit{differentiable structure} $\mathscr{F}$ of class $C^k$ on a $n$-dimensional topological manifold $M$ is a collection of pairs $\{(U_\alpha,\varphi_\alpha):\alpha \in A\}$ where $U_\alpha \subset M$ is a connected open subset and $\varphi_\alpha$ is a homeomorphism of $U_\alpha$ onto a open subset of $\mathbb{R}^n$ with the following properties:
+				\begin{enumerate}
+					\item $\bigcup_{\alpha \in A}U_\alpha = M$. \label{fst}
+					\item $\varphi_\alpha \circ \varphi_\beta^{-1}$ is $C^k$ for all $\alpha, \beta \in A$. \label{snd}
+					\item The collection $\mathscr{F}$ is maximal with respect to \ref{snd}. If $(U,\varphi)$ is another pair such that $\varphi \circ \varphi_\alpha^{-1}$ and $\varphi_\alpha \circ \varphi^{-1}$ are $C^k$ for all $\alpha \in A$, then $(U,\varphi) \in \mathscr{F}$.
+				\end{enumerate}
+			\end{definition}
+			
+			\begin{definition}
+				An $n$-dimensional differential manifold of class $C^k$ is an $n$-dimensional manifold $M$ together with a differentiable structure $\mathscr{F}$.
+			\end{definition}
+			One may write $(M,\mathscr{F})$ to denote a differential manifold, just like writing $(X,\tau)$ to denote a topological vector space. When the context is clear and the differentiable structure needs not to be emphasised, we simply use $M$ to denote a differential manifold.
+			
+			But wait. Have we gone too far? Is the definition of manifold coming from nowhere? The answer is no. What we have done is nothing but a generalisation of curves and surfaces in higher dimensions, with the potential to work with differentiation. Let's recall our second solution of finding the tangent line. We were working on a open neighbourhood of the point $(m,n)$ on the ellipse curve. What's the difference between $(U,g)$ there and the pairs here? Chances are very little.
+			
+			Let's have some remarks on the definition. The pair $(U,\varphi)$ is generally called charts or coordinate system. The reason is clear: we cannot assign coordinate on $M$, but we can do it on $\mathbb{R}^n$. The coordinate system allows us to assign coordinates locally. For this reason we also call $\varphi$ here the coordinate map, the $i$-th components $x_i = r_i \circ \varphi$ are called coordinate functions. The requirement in \ref{snd} may look confusing. But in fact that's where the differentiable structure comes from. Note $\varphi_\alpha \circ \varphi_\beta^{-1}$ is a map of $\mathbb{R}^n \to \mathbb{R}^n$. Since these $\{U_\alpha\}$ cover $M$, there may be overlaps among them. We require that within these overlaps, the interchange of coordinate maps are differentiable of class $C^k$. For example we tend to discuss the differentiation on $S^1$ but not on the edge of a rectangle.
+
+			Since $\varphi_\alpha \circ \varphi_\beta^{-1}$ is a $\mathbb{R}^n \to \mathbb{R}^n$ map, the Jacobian matrix is $n \times n$. Further, if the determinant is positive everywhere, then we say that this manifold is \textbf{oriented}. We will return to orientation much later.
+			
+			Another remark is, in practice, one rarely sees this bulky collection of data explicitly. Suppose we want to study a point $x \in M$. This lies in at least one $U_\alpha$ together with $\varphi_\alpha$, then we choose one. When doing calculations around this point, we tend to reduce ourselves to the classic analysis. What if we pick another coordinate system? \ref{snd} ensures that the change of systems is of $C^k$, and we can send it back of $C^k$. So in general the result is independent of the coordinate system we pick. 
+		\section{Standard differentiable structure and More Examples}
+		It seems not too many restrictions was given onto the differentiable structure. We have no idea whether the differentiable structure is the one we want or not. Sometimes we want the differentiable structure to contain some specific coordinate systems. For example, for $\mathbb{R}^n$ itself, the standard topology is the Euclidean topology. We also want a standard differentiable structure on $\mathbb{R}^n$, which should at the very least contain $(\mathbb{R}^n,i)$ where $i$ is the identity map.
+		\begin{theorem}
+			Let $\mathscr{F}_0$ be any collection of coordinate systems that satisfies \ref{fst} and \ref{snd}, then there is a unique differentiable structure $\mathscr{F} \supset \mathscr{F}_0$.
+		\end{theorem}
+		\begin{proof}
+			Let
+			\[
+				\mathscr{F} = \{(U,\varphi):\text{$U\subset M$ is open and connected, $\varphi \circ \varphi_\alpha^{-1}$ and $\varphi_\alpha \circ \varphi^{-1}$ are $C^k$ for all $\varphi_\alpha \in \mathscr{F}_0$}\}
+			\]
+			Then $\mathscr{F} \supset \mathscr{F}_0$ by definition. Since all satisfied coordinate systems are included, $\mathscr{F}$ is maximal, hence it is a differentiable structure. Besides, suppose $\mathscr{F}'$ is another differentiable structure containing $\mathscr{F}_0$, then for any $(U,\varphi) \in \mathscr{F}'$, we have $U \subset M$ is open and connected, $\varphi \circ \varphi_\alpha^{-1}$ and $\varphi_\alpha \circ \varphi^{-1}$ are $C^k$ for all $\varphi_\alpha \in \mathscr{F}_0$. But this is essentially to say that $(U,\varphi) \in \mathscr{F}$, hence $\mathscr{F}' \subset \mathscr{F}$, which proves the uniqueness of $\mathscr{F}$.
+		\end{proof}
+		With this theorem being proved, we can construct standard differentiable structures of given topological manifolds.
+		\begin{enumerate}
+			\item The standard differentiable structure on Euclidean space $\mathbb{R}^n$ is obtained by taking $\mathscr{F}$ to be the maximal collection containing $\{(\mathbb{R}^n,i)\}$. This can be extended to all finite dimensional real and complex vector spaces.
+			\item The $n$-sphere is the set
+			\[
+				S^n = \{x \in \mathbb{R}^{n+1}:x_0^2+\dots+x_n^2=1\}.
+			\]
+			Let $N=(0,\dots,0,1)$ and $S = (0,\dots,0,-1)$. Then the standard differentiable structure on $S^n$ is obtained by taking $\mathscr{F}$ to be the maximal collection containing $(S^n-N,p_N)$ and $(S^n-S,p_S)$, where $p_N$ and $p_S$ are stereographic projections from $N$ and $S$ respectively. 
+		\end{enumerate}
+\end{document}
